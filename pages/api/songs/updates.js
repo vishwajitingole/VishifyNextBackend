@@ -1,9 +1,7 @@
-import { applyCors } from '../../../lib/cors';
 import dbConnect from '../../../lib/db';
 import Song from '../../../models/Song';
 
 async function handler(req, res) {
-    if (applyCors(req, res)) return;
     if (req.method !== 'GET') return res.status(405).end();
 
     await dbConnect();

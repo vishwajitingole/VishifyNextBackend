@@ -4,17 +4,6 @@ import dbConnect from '../lib/db';
 import User from '../models/User';
 
 export const protect = handler => async(req, res) => {
-    const origin = req.headers.get("origin") || "*";
-    const res = NextResponse.next();
-
-    res.headers.set("Access-Control-Allow-Origin", origin);
-    res.headers.set("Access-Control-Allow-Credentials", "true");
-    res.headers.set("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
-    res.headers.set(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization, X-Requested-With"
-    );
-
     await dbConnect();
     const auth = req.headers.authorization || '';
     if (!auth.startsWith('Bearer ')) return res.status(401).json({ message: 'Not authorized, no token' });
